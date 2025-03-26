@@ -1,19 +1,15 @@
 // server.js
 const express = require("express");
 const cors = require("cors"); // Importa el middleware CORS
+const sheetsRoutes = require("./src/routes/sheetsRoutes"); // Asegúrate de que esta línea es la correcta
+
 const app = express();
-const port = 5000; // Puerto donde estará corriendo el backend
-
-// Habilitar CORS para todas las solicitudes
-app.use(cors());
-
-// Importar las rutas de Google Sheets
-const sheetsRoute = require("./src/routes/sheetsRoute");
+app.use(cors()); // Habilitar CORS para todas las solicitudes
+app.use(express.json());
 
 // Usar las rutas para la API de Google Sheets
-app.use("/api/sheets", sheetsRoute);
+app.use("/api/sheets", sheetsRoutes); // Asegúrate de que la ruta sea la correcta
 
 // Iniciar el servidor
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
